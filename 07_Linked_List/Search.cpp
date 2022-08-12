@@ -31,21 +31,36 @@ void Display(struct Node *p)
         p = p->next;
     }
 }
-int Max(struct Node *p)
+struct Node *LSearch(struct Node *p, int key)
 {
-    int max = INT32_MIN;
-    while (p)
+    while (p != NULL)
     {
-        if (p->data > max)
-            max = p->data;
+        if (key == p->data)
+            return p;
         p = p->next;
     }
-    return max;
+    return NULL;
+}
+struct Node *Rsearch(struct Node *p, int key)
+{
+    if (p == NULL)
+        return NULL;
+
+    if (key == p->data)
+        return p;
+
+    return Rsearch(p->next, key);
 }
 int main(int argc, char const *argv[])
 {
-    int A[] = {3, 5, 7, 10, 15};
-    create(A, 5);
-    cout << "Maximum element is :" << Max(first);
+    struct Node *temp;
+    int A[] = {45, 6, 9, 72, 80, 75, 46, 69};
+    create(A, 8);
+    // temp = LSearch(first, 75);
+    temp = Rsearch(first, 7);
+    if (temp)
+        cout << "key is found: " << temp->data << endl;
+    else
+        cout << "key not found" << endl;
     return 0;
 }
