@@ -155,6 +155,7 @@ void Tree::PreOrder(Node *p)
         PreOrder(p->lchild);
         PreOrder(p->rchild);
     }
+    cout << endl;
 }
 void Tree::InOrder(Node *p)
 {
@@ -164,6 +165,7 @@ void Tree::InOrder(Node *p)
         cout << p->data << ",";
         InOrder(p->rchild);
     }
+    cout << endl;
 }
 void Tree::PostOrder(Node *p)
 {
@@ -173,8 +175,30 @@ void Tree::PostOrder(Node *p)
         PostOrder(p->rchild);
         cout << p->data << ",";
     }
+    cout << endl;
 }
+void Tree::LevelOrder(Node *p)
+{
+    Queue q(100);
+    cout << p->data;
+    q.enqueue(root);
 
+    while (!q.isEmpty())
+    {
+        p = q.dequeue();
+        if (p->lchild)
+        {
+            cout << p->lchild->data << ",";
+            q.enqueue(p->lchild);
+        }
+        if (p->rchild)
+        {
+            cout << p->rchild->data << ",";
+            q.enqueue(p->rchild);
+        }
+    }
+    cout << endl;
+}
 int main(int argc, char const *argv[])
 {
     Tree t;
@@ -185,5 +209,7 @@ int main(int argc, char const *argv[])
     t.InOrder(t.getRoot());
     cout << "PostOrder:" << endl;
     t.PostOrder(t.getRoot());
+    cout << "LevelOrder:" << endl;
+    t.LevelOrder(t.getRoot());
     return 0;
 }
