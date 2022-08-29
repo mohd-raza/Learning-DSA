@@ -105,9 +105,10 @@ public:
     void LevelOrder(Node *p);
     int Height() { return Height(root); } // Passing Private Parameter in Constructor
     int Height(Node *p);
+    int Count() { Count(root); }
+    int Count(Node *p);
     Node *getRoot() { return root; }
 };
-
 void Tree::CreateTree()
 {
     Node *p, *t;
@@ -155,7 +156,6 @@ void Tree::PreOrder(Node *p)
         PreOrder(p->lchild);
         PreOrder(p->rchild);
     }
-    cout << endl;
 }
 void Tree::InOrder(Node *p)
 {
@@ -165,7 +165,6 @@ void Tree::InOrder(Node *p)
         cout << p->data << ",";
         InOrder(p->rchild);
     }
-    cout << endl;
 }
 void Tree::PostOrder(Node *p)
 {
@@ -175,7 +174,6 @@ void Tree::PostOrder(Node *p)
         PostOrder(p->rchild);
         cout << p->data << ",";
     }
-    cout << endl;
 }
 void Tree::LevelOrder(Node *p)
 {
@@ -197,7 +195,38 @@ void Tree::LevelOrder(Node *p)
             q.enqueue(p->rchild);
         }
     }
-    cout << endl;
+}
+int Tree::Count(Node *p)
+{
+    int x;
+    int y;
+    if (p != nullptr)
+    {
+        x = Count(p->lchild);
+        y = Count(p->rchild);
+        return x + y + 1;
+    }
+    return 0;
+}
+int Tree::Height(Node *p)
+{
+    int l = 0;
+    int r = 0;
+
+    if (p != nullptr)
+    {
+        l = Height(p->lchild);
+        r = Height(p->rchild);
+        if (l > r)
+        {
+            return l + 1;
+        }
+        else
+        {
+            return r + 1;
+        }
+    }
+    return 0;
 }
 int main(int argc, char const *argv[])
 {
@@ -211,5 +240,7 @@ int main(int argc, char const *argv[])
     t.PostOrder(t.getRoot());
     cout << "LevelOrder:" << endl;
     t.LevelOrder(t.getRoot());
+    cout << "Count:" << t.Count(t.getRoot()) << endl;
+
     return 0;
 }
